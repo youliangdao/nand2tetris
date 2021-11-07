@@ -39,5 +39,59 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+        And(a=instruction[15], b=instruction[3], out=writeM);
+	//A命令かC命令どちらかを判断
+        Mux16(a=instruction, b=fb, sel=instruction[15], out=ina);
+
+	//Aレジスタの制御
+	Not(in=instruction[15], out=noti);
+	And(a=instruction[15], b=instruction[5], out=id1);
+	Or(a=noti, b=id1, out=la);
+	
+        ARegister(in=ina, load=la, out=outa, out[0..14]=addressM);
+
+	//aビットによるALUへのAレジスタかメモリ入力の選択
+	And(a=instruction[12], b=instruction[15], out=am);
+	Mux16(a=outa, b=inM, sel=am, out=outam);
+
+	//PCカウンタの制御
+	//load制御信号の設定
+	And(a=instruction[2], b=ng, out=out1);
+	And(a=instruction[1], b=zr, out=out2);
+	Not(in=zr, out=notzr);
+	Not(in=ng, out=notng);
+	And(a=instruction[0], b=notzr, out=out3);
+	And(a=out3, b=notng, out=out4);
+	Or(a=out1, b=out2, out=linst);
+	Or(a=linst, b=out4, out=lout);
+	And(a=lout, b=instruction[15], out=lpc);
+
+	//inc制御信号の設定
+	Not(in=instruction[0], out=notj3);
+	Not(in=instruction[1], out=notj2);
+	Not(in=instruction[2], out=notj1);
+	And(a=notj1, b=notj2, out=notj4);
+	And(a=notj4, b=notj3, out=notj5);
+	And(a=notj5, b=instruction[15], out=i1);
+	And(a=instruction[15], b=instruction[2], out=j1);
+	And(a=j1, b=notng, out=i2);
+	And(a=instruction[15], b=instruction[1], out=j2);
+	And(a=j2, b=notzr, out=i3);
+	And(a=instruction[15], b=instruction[0], out=j3);
+	Or(a=zr, b=ng, out=zrng);
+	And(a=zrng, b=j3, out=i4);
+	Or(a=i1, b=noti, out=incpc1);
+	Or(a=incpc1, b=i2, out=incpc2);
+	Or(a=incpc2, b=i3, out=incpc3);
+	Or(a=incpc3, b=i4, out=incpc4);
+
+	PC(in=outa, load=lpc, inc=incpc4, reset=reset, out[0..14]=pc);
+
+	//Dレジスタの制御
+	And(a=instruction[15], b=instruction[4], out=ld);
+	DRegister(in=fb, load=ld, out=outd);
+
+	//ALUの制御
+	ALU(x=outd, y=outam, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=outM, out=fb, zr=zr, ng=ng);	
+
 }
