@@ -4,9 +4,9 @@
 // File name: projects/09/Fraction/Fraction.jack
 
 /** Represents the Fraction type and related operations. */
+
 class Fraction {
-   field int numerator, denominator;  // field = property = member variable.
-  
+   field int numerator, denominator;
    /** Constructs a (reduced) fraction from the given numerator and denominator. */
    constructor Fraction new(int x, int y) {
       let numerator = x;
