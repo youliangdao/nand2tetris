@@ -1,0 +1,32 @@
+function Say.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 5
+call String.new 1
+push constant 104
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 108
+call String.appendChar 2
+push constant 108
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+pop this 0
+push constant 0
+not
+pop this 1
+push pointer 0
+return
+function Say.print 0
+push argument 0
+pop pointer 0
+push this 0
+call Output.printString 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 0
+return

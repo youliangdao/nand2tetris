@@ -1,0 +1,11 @@
+class Main{
+    function void main()
+    {
+        var Say hello;
+
+        let hello = Say.new();
+        do hello.print();
+        return;
+    }
+}
+

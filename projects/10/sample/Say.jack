@@ -1,0 +1,18 @@
+class Say {
+    field String word;
+    field boolean bool;
+
+    constructor Say new()
+    {
+        let word = "hello";
+        let bool = true;
+        return this;
+    }
+
+    method void print()
+    {
+        do Output.printString(word);
+        do Output.println();
+        return;
+    }
+}
