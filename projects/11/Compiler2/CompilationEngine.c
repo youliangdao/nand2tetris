@@ -359,10 +359,10 @@ void compileLet(CompilationEngine *comp, char *className){
         advance(comp->tokenizer);
         
         writeArithmetic(COM_ADD, comp->fp_xml);
-        writePop(SEG_TEMP, 2, comp->fp_xml);
         compileExpression(comp, className);
-        writePush(SEG_TEMP, 2, comp->fp_xml);
+        writePop(SEG_TEMP, 2, comp->fp_xml);
         writePop(SEG_POINTER, 1, comp->fp_xml);
+        writePush(SEG_TEMP, 2, comp->fp_xml);        
         writePop(SEG_THAT, 0, comp->fp_xml);
 
         advance(comp->tokenizer);
