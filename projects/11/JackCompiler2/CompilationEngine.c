@@ -663,7 +663,7 @@ void CompilationEngine_compileTerm(CompilationEngine thisObject, char *className
 
              // ']'
             writeArithmetic(COM_ADD, thisObject->fpXml);
-            writePush(SEG_POINTER, 1, thisObject->fpXml);
+            writePop(SEG_POINTER, 1, thisObject->fpXml);
             writePush(SEG_THAT, 0, thisObject->fpXml);
            
             JackTokenizer_advance(thisObject->tokenizer);
