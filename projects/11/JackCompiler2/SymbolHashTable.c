@@ -1,3 +1,5 @@
+
+
 #include "SymbolHashTable.h"
 
 unsigned getHashVal(char *identifier){
@@ -26,12 +28,9 @@ HashTable *define(char *identifier, char *type, int index, SymbolKind symkind, S
     unsigned hashVal;
     if((p == NULL)){
         p = (HashTable *)malloc(sizeof(HashTable));
-        if(p == NULL) error("Error in \"Define\": memory allocation error.");
 
         p->identifier = strdup(identifier);
-        if(p == NULL) error("Error in \"Define\": strdup(identifier) error.");
         p->type = strdup(type);
-        if(p == NULL) error("Error in \"Define\": strdup(type) error.");
         p->index = index;
         p->kind = symkind;
 
@@ -45,7 +44,6 @@ HashTable *define(char *identifier, char *type, int index, SymbolKind symkind, S
             subroutineHashTable[hashVal] = p;
         }
     }
-    else error("Error in \"Define\": identifier \"%s\" has been defined before.", identifier);
 
     return p;
 }
@@ -98,7 +96,6 @@ int indexOf(char *identifier){
         if(p != NULL){
             return p->index;
         }
-        else error("Error in \"indexOf\": the identifier is not defined.");
     }
 }
 

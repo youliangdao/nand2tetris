@@ -2,7 +2,6 @@
 #define _COMPILATION_ENGINE_H_INCLUDE_
 
 #include <stdio.h>
-#include "SymbolHashTable.h"
 
 typedef struct compilation_engine * CompilationEngine;
 

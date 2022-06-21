@@ -1,5 +1,6 @@
 #include "CompilationEngine.h"
 #include "JackTokenizer.h"
+#include "SymbolHashTable.h"
 #include "string.h"
 #include <stdarg.h>
 
@@ -113,6 +114,7 @@ void CompilationEngine_compileClassVarDec(CompilationEngine thisObject)
 // subroutineBody: '{' varDec* statements '}'
 void CompilationEngine_compileSubroutine(CompilationEngine thisObject)
 {
+    startSubroutine();
     fprintf(thisObject->fpXml, "<subroutineDec>\n");
 
     JackTokenizer_Keyword kwKind;

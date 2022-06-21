@@ -1,3 +1,5 @@
+
+
 #include "VMWriter.h"
 
 void getSegKind(SegmentKind kind, char *segkind){
@@ -9,7 +11,6 @@ void getSegKind(SegmentKind kind, char *segkind){
     else if(kind == SEG_THAT) strcpy(segkind, "that");
     else if(kind == SEG_POINTER) strcpy(segkind, "pointer");
     else if(kind == SEG_TEMP) strcpy(segkind, "temp");
-    else error("Error in \"getSegKind\": such kind of segment does not exist.");
 }
 
 void getComKind(CommandKind kind, char *comkind){
@@ -22,7 +23,6 @@ void getComKind(CommandKind kind, char *comkind){
     else if(kind == COM_AND) strcpy(comkind, "and");
     else if(kind == COM_OR) strcpy(comkind, "or");
     else if(kind == COM_NOT) strcpy(comkind, "not");
-    else error("Error in \"getComKind\": such kind of arithmetic command does not exist.");
 }
 
 void getLabel(char *label){

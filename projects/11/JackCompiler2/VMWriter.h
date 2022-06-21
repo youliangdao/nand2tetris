@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<string.h>
 
 static int labelNum = 0;
 

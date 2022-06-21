@@ -1,5 +1,6 @@
 #include<stdlib.h>
 #include<stdbool.h>
+#include<string.h>
 
 #define HASHTABLE_SIZE 10000
 
@@ -27,9 +28,9 @@ struct HashTable{
 };
 
 HashTable *classHashTable[HASHTABLE_SIZE];
-HashTable **cHT_ptr = classHashTable;
+// HashTable **cHT_ptr = classHashTable;
 HashTable *subroutineHashTable[HASHTABLE_SIZE];
-HashTable **sHT_ptr = subroutineHashTable;
+// HashTable **sHT_ptr = subroutineHashTable;
 
 unsigned getHashVal(char *identifier);
 HashTable *find(char *identifier, ScopeKind kind);

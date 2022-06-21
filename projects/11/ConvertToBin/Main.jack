@@ -26,56 +26,58 @@ class Main {
      */
     function void main() {
 	    var int value;
-        do Main.fillMemory(8001, 16, -1); // sets RAM[8001]..RAM[8016] to -1
-        let value = Memory.peek(8000);    // reads a value from RAM[8000]
-        do Main.convert(value);           // performs the conversion
+        do Memory.poke(8000, 100);
+        do Main.fillMemory(8001, 16, -1);
+        let value = Memory.peek(8000);
+        do Main.convert(value);
         return;
     }
     
     /** Converts the given decimal value to binary, and puts 
      *  the resulting bits in RAM[8001]..RAM[8016]. */
     function void convert(int value) {
-    	var int mask, position;
-    	var boolean loop;
-    	
-    	let loop = true;
-    	while (loop) {
-    	    let position = position + 1;
-    	    let mask = Main.nextMask(mask);
-    	
-    	    if (~(position > 16)) {
-    	
-    	        if (~((value & mask) = 0)) {
-    	            do Memory.poke(8000 + position, 1);
-       	        }
-    	        else {
-    	            do Memory.poke(8000 + position, 0);
-      	        }    
-    	    }
-    	    else {
-    	        let loop = false;
-    	    }
-    	}
-    	return;
+        var int position, mask;
+        var boolean loop;
+
+        let loop = true;
+
+        while (loop) {
+            let position = position + 1;
+            let mask = Main.nextMask(mask);
+
+            if (~(position > 16)) {
+                if (~((value & mask) = 0)) {
+                    do Memory.poke(position + 8000, 1);
+                }
+                else {
+                    do Memory.poke(position + 8000, 0);
+                }
+            }
+            else {
+                let loop = false;
+            }
+        }
+        return;
     }
  
     /** Returns the next mask (the mask that should follow the given mask). */
     function int nextMask(int mask) {
-    	if (mask = 0) {
-    	    return 1;
-    	}
-    	else {
-	    return mask * 2;
-    	}
+        if (mask = 0) {
+            return  1;
+        }
+        else {
+            return (mask * 2);
+        }
     }
     
     /** Fills 'length' consecutive memory locations with 'value',
       * starting at 'startAddress'. */
     function void fillMemory(int startAddress, int length, int value) {
-        while (length > 0) {
-            do Memory.poke(startAddress, value);
-            let length = length - 1;
-            let startAddress = startAddress + 1;
+        var int i;
+        let i = 0;
+        while (i < length) {
+            do Memory.poke(startAddress + i, value);
+            let i = i + 1;
         }
         return;
     }
